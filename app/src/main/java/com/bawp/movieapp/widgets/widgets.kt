@@ -54,15 +54,25 @@ fun MovieRow(movie: Movie = getMovies()[0],
                 .size(100.dp),
                 shape = RectangleShape,
                 elevation = 4.dp) {
-                Image(painter = rememberImagePainter(data = movie.images[0],
-                                                    builder = {
-                                                        crossfade(true)
-                                                        transformations(CircleCropTransformation())
-                                                    }),
-                    contentDescription = "Movie Poster")
-
+                
 //                Icon(imageVector = Icons.Default.AccountBox,
 //                    contentDescription = "Movie Image")
+              /* coil version 1 */
+//               Image(painter = rememberImagePainter(data = movie.images[0],
+//                                                    builder = {
+//                                                        crossfade(true)
+//                                                        transformations(CircleCropTransformation())
+//                                                    }),
+//                    contentDescription = "Movie Poster")
+
+              /* coil2 & coil3 */
+              /* using the poster image */
+                Image(painter = rememberAsyncImagePainter(model = ImageRequest.Builder(LocalContext.current)
+                        //.data(movie.images[0])
+                        .data(movie.poster)
+                        .crossfade(true)
+                        //.transformations(CircleCropTransformation())
+                        .build(), contentScale = ContentScale.Crop), contentDescription = "Movie Poster", contentScale = ContentScale.Crop)
 
             }
             Column(modifier = Modifier.padding(4.dp)) {
